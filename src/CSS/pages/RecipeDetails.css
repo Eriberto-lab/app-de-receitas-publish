@@ -1,0 +1,30 @@
+.img-details {
+  border-radius: 3%;
+  float: right;
+  width: 200px;
+}
+
+.div-details {
+  background-color: rgb(252, 244, 198);
+  margin-bottom: 30px;
+}
+
+.details-about-all-recipe {
+  margin-left: 10px;
+}
+
+.div-share-icon-N-btn-fav {
+  padding: 4%;
+}
+
+.video-youtube {
+  height: 230px;
+  padding: 3%;
+  width: 410px;
+}
+
+.favorite-btn {
+  background-color: antiquewhite;
+  border-radius: 5%;
+  margin-right: 220px;
+}

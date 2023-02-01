@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
 import RecommendationCard from '../components/RecommendationCard';
-
+import '../CSS/pages/RecipeDetails.css';
 import '../style/RecipeDetails.css';
-
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
@@ -85,10 +84,11 @@ function RecipeDetails(props) {
   }, [category]);
 
   return (
-    <>
+    <div className="div-details">
       { ingredients && (
-        <div>
+        <div className="details-about-all-recipe">
           <img
+            className="img-details"
             src={ recipe[`str${keyName}Thumb`] }
             alt="recipe"
             data-testid="recipe-photo"
@@ -121,6 +121,7 @@ function RecipeDetails(props) {
             { recipe.strInstructions }
           </p>
           { category === 'meals' && recipe.strYoutube && <iframe
+            className="video-youtube"
             title="recipe-video"
             width="420"
             height="315"
@@ -128,7 +129,14 @@ function RecipeDetails(props) {
             data-testid="video"
           /> }
         </div>)}
-      <div>
+      <div className="div-share-icon-N-btn-fav">
+        <button
+          className="favorite-btn"
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Add to Favorites
+        </button>
         <img
           src={ shareIcon }
           alt="share"
@@ -139,12 +147,6 @@ function RecipeDetails(props) {
             setShared(true);
           } }
         />
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Add to Favorites
-        </button>
       </div>
       { shared && <small>Link copied!</small> }
       <div className="recommendation-container">
@@ -165,7 +167,7 @@ function RecipeDetails(props) {
         >
           { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
         </button>)}
-    </>
+    </div>
   );
 }
 

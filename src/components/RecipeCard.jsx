@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
+import '../CSS/components/RecipeCard.css';
 
 function RecipeCard(props) {
   const history = useHistory();
@@ -22,16 +23,20 @@ function RecipeCard(props) {
 
   return (
     <div
+      className="div"
       role="presentation"
       data-testid={ `${index}-recipe-card` }
       onClick={ () => history.push(`${location.pathname}/${id}`) }
     >
       <img
+        className="img"
         src={ picture }
         alt={ `recipe-${index}` }
         data-testid={ `${index}-card-img` }
       />
-      <p data-testid={ `${index}-card-name` }>{ name }</p>
+      <strong>
+        <p data-testid={ `${index}-card-name` } className="name">{ name }</p>
+      </strong>
     </div>
   );
 }

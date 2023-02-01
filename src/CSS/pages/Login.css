@@ -1,0 +1,24 @@
+.div-login {
+  background: url('../../images/login.jpg') no-repeat fixed;
+  background-position: 10% 50%;
+  background-size: 505px;
+  height: 500px;
+}
+
+.form-login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-login {
+  border: black solid 2px;
+  border-radius: 8%;
+  margin-top: 30px;
+  padding: 1%;
+  width: 100px;
+}
+
+.email-login {
+  margin-top: 180px;
+}

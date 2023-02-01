@@ -6,12 +6,16 @@
 }
 
 .recommendation-card img {
+  border-right: solid 3px rgb(126, 107, 4);
   width: 50vw;
 }
 
 .start-recipe-btn {
   bottom: 0;
-  left: calc(50vw - 5vw);
+  left: calc(45vw - 5vw);
   position: fixed;
-  width: 10vw;
+
+  /* left: calc(50vw - 5vw); */
+
+  /* width: 10vw; */
 }

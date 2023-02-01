@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../CSS/pages/Login.css';
 
 export default function Login() {
   const [infos, setInfos] = useState({
@@ -38,34 +39,39 @@ export default function Login() {
   }, [loginInputValidation, infos]);
 
   return (
-    <form>
-      <input
-        data-testid="email-input"
-        placeholder="Email"
-        type="email"
-        name="email"
-        value={ infos.email }
-        onChange={ handleValidation }
-      />
+    <div className="div-login">
+      <form className="form-login">
+        <input
+          data-testid="email-input"
+          placeholder="Email"
+          type="email"
+          name="email"
+          value={ infos.email }
+          onChange={ handleValidation }
+          className="email-login"
+        />
 
-      <input
-        type="password"
-        placeholder="Senha"
-        data-testid="password-input"
-        value={ infos.password }
-        name="password"
-        onChange={ handleValidation }
-      />
+        <input
+          type="password"
+          placeholder="Senha"
+          data-testid="password-input"
+          value={ infos.password }
+          name="password"
+          onChange={ handleValidation }
+        />
 
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ isButtonDisabled }
-        onClick={ handleClick }
-      >
-        Entrar
-      </button>
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ isButtonDisabled }
+          onClick={ handleClick }
+          className="btn-login"
+        >
+          Entrar
+        </button>
 
-    </form>
+      </form>
+    </div>
+
   );
 }
