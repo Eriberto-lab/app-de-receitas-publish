@@ -1,5 +1,27 @@
 .header {
-  background-color: #e4ad3e;
+  background: url('../../images/header.png') no-repeat fixed;
+  background-size: 550px;
   display: flex;
+  justify-content: flex-end;
+  padding: 9%;
+}
+
+.search-bar {
+  margin-right: 50px;
+  margin-top: -15px;
+}
+
+.icon-profile {
+  margin-top: -15px;
+  position: absolute;
+}
+
+.title-header {
+  color: rgb(53, 34, 10);
+  margin-left: 20px;
+  margin-top: -7px;
   padding: 2%;
+  position: absolute;
+  text-decoration: underline;
+  width: 30%;
 }

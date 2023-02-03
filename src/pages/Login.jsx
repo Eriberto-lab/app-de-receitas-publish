@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../CSS/pages/Login.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export default function Login() {
   const [infos, setInfos] = useState({
@@ -40,8 +42,8 @@ export default function Login() {
 
   return (
     <div className="div-login">
-      <form className="form-login">
-        <input
+      <form className="form-login flow-text">
+        <Form.Control
           data-testid="email-input"
           placeholder="Email"
           type="email"
@@ -51,24 +53,26 @@ export default function Login() {
           className="email-login"
         />
 
-        <input
+        <Form.Control
           type="password"
           placeholder="Senha"
           data-testid="password-input"
           value={ infos.password }
           name="password"
           onChange={ handleValidation }
+          className="pass-login"
         />
 
-        <button
+        <Button
           data-testid="login-submit-btn"
           type="button"
           disabled={ isButtonDisabled }
           onClick={ handleClick }
           className="btn-login"
+          variant="outline-warning"
         >
           Entrar
-        </button>
+        </Button>
 
       </form>
     </div>

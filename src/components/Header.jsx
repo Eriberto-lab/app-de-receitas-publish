@@ -12,16 +12,17 @@ function Header(props) {
   return (
     <header>
       <div className="header">
+        <span className="search-bar">{ search && <SearchBar /> }</span>
         { profile && <img
+          className="icon-profile"
           src={ profileIcon }
           alt="profile"
           data-testid="profile-top-btn"
           role="presentation"
           onClick={ () => history.push('/profile') }
         /> }
-        { search && <SearchBar /> }
       </div>
-      <h2 data-testid="page-title">{ title }</h2>
+      <h3 className="title-header" data-testid="page-title">{ title.toUpperCase() }</h3>
     </header>
   );
 }

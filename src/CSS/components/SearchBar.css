@@ -1,0 +1,19 @@
+.div-searchBar {
+  margin-left: 120px;
+  margin-top: 30px;
+}
+
+.img-search {
+  margin-left: 300px;
+  position: relative;
+}
+
+.btn-search {
+  margin-left: 135px;
+  margin-top: -55px;
+  position: absolute;
+}
+
+.the-3-radios {
+  width: 50%;
+}

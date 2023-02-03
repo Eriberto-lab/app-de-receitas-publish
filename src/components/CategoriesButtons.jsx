@@ -1,5 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import '../CSS/components/CategoryButtons.css';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
 import SearchContext from '../context/SearchContext';
 
 function CategoriesButtons(props) {
@@ -29,28 +33,50 @@ function CategoriesButtons(props) {
   const MAX_LENGTH = 4;
 
   const buttonFunction = (index, category) => (
-    <button
+    <Button
+      className="category-btns"
+      variant="secondary"
       key={ `category-${index}` }
       data-testid={ `${category}-category-filter` }
       onClick={ () => handleFilters(category) }
     >
       { category }
-    </button>
+    </Button>
   );
 
+  const btns = (
+    <Button
+      variant="secondary"
+      className="category-btns"
+      key="category-all"
+      data-testid="All-category-filter"
+      onClick={ () => handleSearch({ searchInput: '', radioInput: 'Name' }) }
+    >
+      All
+    </Button>);
+
   return (
-    <div>
-      { results
-        .map((category, index) => (index <= MAX_LENGTH)
-        && buttonFunction(index, category.strCategory)) }
-      <button
-        key="category-all"
-        data-testid="All-category-filter"
-        onClick={ () => handleSearch({ searchInput: '', radioInput: 'Name' }) }
+    <Dropdown>
+      <Dropdown.Toggle
+        className="title-dropdown"
+        variant="success"
+        id="dropdown-basic"
       >
-        All
-      </button>
-    </div>
+        Categories
+      </Dropdown.Toggle>
+      <ButtonGroup className="me-2" aria-label="First group">
+        <Dropdown.Menu>
+          <Dropdown.Item href="#/action-1">
+            <div className="all-btns">
+              { results
+                .map((category, index) => (index <= MAX_LENGTH)
+              && buttonFunction(index, category.strCategory)) }
+              {btns}
+            </div>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </ButtonGroup>
+    </Dropdown>
   );
 }
 

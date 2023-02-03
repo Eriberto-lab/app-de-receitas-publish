@@ -1,12 +1,11 @@
 .img-details {
   border-radius: 3%;
   float: right;
-  width: 200px;
+  width: 150px;
 }
 
 .div-details {
   background-color: rgb(252, 244, 198);
-  margin-bottom: 30px;
 }
 
 .details-about-all-recipe {
@@ -18,13 +17,59 @@
 }
 
 .video-youtube {
+  border: solid 5px rgb(74, 136, 74);
   height: 230px;
-  padding: 3%;
-  width: 410px;
+  margin-left: 10px;
+  padding: 1%;
+  width: 310px;
 }
 
 .favorite-btn {
-  background-color: antiquewhite;
+  background-color: rgb(235, 228, 198);
   border-radius: 5%;
-  margin-right: 220px;
+  margin: -10px 1px 100px 100px;
+  padding: 2%;
+  position: absolute;
+  width: 40%;
+}
+
+.share {
+  margin-left: 270px;
+  margin-top: -15px;
+  padding: 0.5%;
+  width: 13%;
+}
+
+.list-details {
+  background-color: rgb(252, 244, 198);
+  color: rgb(53, 34, 10);
+  font-size: smaller;
+  width: 100%;
+}
+
+.recipe-category {
+  color: rgb(53, 34, 10);
+  margin: -35px 1px 60px 30px;
+}
+
+.recipe-title {
+  color: rgb(53, 34, 10);
+  padding: 10%;
+  text-decoration: underline;
+}
+
+.text-details {
+  font-size: smaller;
+  margin-left: 10px;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.recommendation-container {
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap;
 }

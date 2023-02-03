@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import '../CSS/pages/RecipeInProgress.css';
 
 function RecipeInProgress(props) {
   const { match: { params: { id } } } = props;
@@ -60,27 +62,30 @@ function RecipeInProgress(props) {
 
       <br />
 
-      <button
+      <Button
         type="button"
+        variant="outline-success"
         data-testid="share-btn"
         // onClick={ handleShare }
       >
         Share
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
+        variant="outline-success"
         data-testid="favorite-btn"
         // onClick={ handleFavorite }
       >
         Favorite
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
+        variant="outline-success"
         data-testid="recipe-category"
         // onClick={ handleCategory }
       >
         Category
-      </button>
+      </Button>
 
       <h5 data-testid="instructions">{ recipe.strInstructions }</h5>
 

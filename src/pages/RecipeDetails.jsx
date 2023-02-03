@@ -1,6 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 import SearchContext from '../context/SearchContext';
 import RecommendationCard from '../components/RecommendationCard';
 import '../CSS/pages/RecipeDetails.css';
@@ -95,31 +97,38 @@ function RecipeDetails(props) {
           />
           <h2
             data-testid="recipe-title"
+            className="recipe-title"
           >
             { recipe[`str${keyName}`] }
           </h2>
           <h3
             data-testid="recipe-category"
+            className="recipe-category"
           >
             { recipe.strCategory }
             { category === 'drinks' && <small>{ ` (${recipe.strAlcoholic})` }</small> }
           </h3>
-          <ul>
+          <hr size="1" />
+          <ListGroup variant="flush">
             { ingredients.map((ingredient, i) => (
-              <li
+              <ListGroup.Item
                 key={ i }
                 data-testid={ `${i}-ingredient-name-and-measure` }
+                className="list-details"
               >
                 <strong>{ingredient.measure}</strong>
                 { ingredient.measure && ' of ' }
                 {ingredient.ingredient}
-              </li>))}
-          </ul>
+              </ListGroup.Item>))}
+          </ListGroup>
+          <hr size="8" />
           <p
             data-testid="instructions"
+            className="text-details"
           >
             { recipe.strInstructions }
           </p>
+          <hr size="8" />
           { category === 'meals' && recipe.strYoutube && <iframe
             className="video-youtube"
             title="recipe-video"
@@ -130,23 +139,14 @@ function RecipeDetails(props) {
           /> }
         </div>)}
       <div className="div-share-icon-N-btn-fav">
-        <button
+        <Button
           className="favorite-btn"
+          variant="outline-success"
           type="button"
           data-testid="favorite-btn"
         >
           Add to Favorites
-        </button>
-        <img
-          src={ shareIcon }
-          alt="share"
-          role="presentation"
-          data-testid="share-btn"
-          onClick={ () => {
-            copy(`http://localhost:3000${location.pathname}`);
-            setShared(true);
-          } }
-        />
+        </Button>
       </div>
       { shared && <small>Link copied!</small> }
       <div className="recommendation-container">
@@ -159,14 +159,26 @@ function RecipeDetails(props) {
             />))}
       </div>
       { showStartRecipeBtn && (
-        <button
+        <Button
           className="start-recipe-btn"
+          variant="outline-success"
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => history.push(`${location.pathname}/in-progress`) }
         >
           { continueBtn ? 'Continue Recipe' : 'Start Recipe' }
-        </button>)}
+        </Button>)}
+      <img
+        src={ shareIcon }
+        className="share"
+        alt="share"
+        role="presentation"
+        data-testid="share-btn"
+        onClick={ () => {
+          copy(`http://localhost:3000${location.pathname}`);
+          setShared(true);
+        } }
+      />
     </div>
   );
 }

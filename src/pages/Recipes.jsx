@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SearchContext from '../context/SearchContext';
 import RecipeCard from '../components/RecipeCard';
 import CategoriesButtons from '../components/CategoriesButtons';
+import '../CSS/pages/Recipes.css';
 
 function Recipes(props) {
   const { title } = props;
@@ -15,16 +16,18 @@ function Recipes(props) {
     <div>
       <Header title={ title } profile search />
       <CategoriesButtons title={ title } />
-      { searchResult
-      && title.toLowerCase() in searchResult && searchResult[title.toLowerCase()]
-        .map((recipe, index) => {
-          if (index > MAX_LENGTH) return;
-          return (<RecipeCard
-            key={ `recipe-card-${index}` }
-            recipe={ recipe }
-            index={ index }
-          />);
-        }) }
+      <div className="recipes-card">
+        { searchResult
+        && title.toLowerCase() in searchResult && searchResult[title.toLowerCase()]
+          .map((recipe, index) => {
+            if (index > MAX_LENGTH) return;
+            return (<RecipeCard
+              key={ `recipe-card-${index}` }
+              recipe={ recipe }
+              index={ index }
+            />);
+          }) }
+      </div>
       <Footer />
     </div>
   );

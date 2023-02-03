@@ -1,0 +1,20 @@
+.footer-container {
+  background: url('../../images/footer.png') fixed;
+  background-position: 11%;
+  background-size: 340px;
+  bottom: 0;
+  display: flex;
+  height: 45px;
+  left: 0;
+  padding: 1%;
+  position: relative;
+  width: 100%;
+}
+
+.links-meals-footer {
+  margin-left: 30px;
+}
+
+.links-drinks-footer {
+  margin-left: 110px;
+}

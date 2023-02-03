@@ -1,20 +1,30 @@
 .img {
+  border: 2px rgb(184, 212, 176);
   border-radius: 15%;
-  margin: 30px 30px 5px;
+  margin: 25px 25px 5px;
   width: 70%;
 }
 
 .name {
-  margin-left: 40px;
+  color: rgb(53, 34, 10);
+  font-size: smaller;
+  margin-left: 25px;
+  width: 80%;
 }
 
 .div {
-  background-color: rgb(252, 244, 198);
+  background-color: rgb(184, 212, 176);
   border-radius: 10%;
   float: left;
   height: 0;
-  margin: 1%;
-  padding-bottom: 55%;
+  margin: 2%;
+  padding-bottom: 64%;
   position: relative;
-  width: 48%;
+  width: 46%;
+}
+
+.div:hover {
+  background-color: rgb(240, 193, 106);
+  border: 2px solid rgb(184, 212, 176);
+  transition: 1s;
 }

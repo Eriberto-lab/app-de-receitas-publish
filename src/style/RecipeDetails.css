@@ -1,9 +1,9 @@
-.recommendation-container {
+/* .recommendation-container {
   display: flex;
   overflow: auto;
   scroll-behavior: smooth;
   white-space: nowrap;
-}
+} */
 
 .recommendation-card img {
   border-right: solid 3px rgb(126, 107, 4);
@@ -13,9 +13,8 @@
 .start-recipe-btn {
   bottom: 0;
   left: calc(45vw - 5vw);
-  position: fixed;
-
-  /* left: calc(50vw - 5vw); */
-
-  /* width: 10vw; */
+  margin-bottom: -20px;
+  margin-left: -45px;
+  position: relative;
+  width: 40%;
 }
