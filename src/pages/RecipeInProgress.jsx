@@ -1,8 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import '../CSS/pages/RecipeInProgress.css';
+import { useLocation } from 'react-router-dom';
+import IngredientCard from '../components/IngredientCard';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function RecipeInProgress(props) {
   const { match: { params: { id } } } = props;
@@ -11,6 +17,45 @@ function RecipeInProgress(props) {
   const [recipe, setRecipe] = useState({});
   const [category, setCategory] = useState('');
   const [keyName, setKeyName] = useState('');
+  const [shared, setShared] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoritesLocalStorage,
+    setFavoritesLocalStorage] = useState(localStorage.getItem('favoriteRecipes'));
+
+  useEffect(() => {
+    if (localStorage.getItem('favoriteRecipes')) {
+      const favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      const favorite = favorites.find((favRecipe) => favRecipe.id === id);
+      if (favorite) setIsFavorite(true);
+      else setIsFavorite(false);
+    }
+  }, [id, favoritesLocalStorage]);
+
+  const handleFavorites = () => {
+    let favorites = [];
+    const favorite = {
+      id,
+      type: keyName.toLowerCase(),
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe?.strAlcoholic || '',
+      name: recipe[`str${keyName}`],
+      image: recipe[`str${keyName}Thumb`],
+    };
+
+    if (!isFavorite) {
+      if (localStorage.getItem('favoriteRecipes')) {
+        favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      }
+      favorites.push(favorite);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    } else {
+      favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      const favorites2 = favorites.filter((fav) => fav.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites2));
+    }
+    setFavoritesLocalStorage(localStorage.getItem('favoriteRecipes'));
+  };
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -45,70 +90,101 @@ function RecipeInProgress(props) {
         ingredients.push({ name, measure });
       }
     }
-    // console.log(ingredients);
 
     return ingredients;
   };
 
+  const path = `http://localhost:3000${location.pathname}`;
+  const pathname = path.substring(0, path.indexOf('/in-progress', 1));
+
   return (
-    <div>
-      <h1 data-testid="recipe-title">Recipe in Progress</h1>
+    <div className="div-recipe-inprogress">
+      <h1 data-testid="recipe-title" className="title-inprogress">Recipe in Progress</h1>
+      <hr size="1" className="hr-1" />
+
       <img
         src={ recipe[`str${keyName}Thumb`] }
         alt={ recipe[`id${keyName}`] }
         data-testid="recipe-photo"
         width="400px"
+        className="img-inprogress"
       />
 
       <br />
 
-      <Button
+      <div className="icons-inprogress">
+        <img
+          src={ shareIcon }
+          alt="share"
+          role="presentation"
+          data-testid="share-btn"
+          onClick={ () => {
+            copy(pathname);
+            setShared(true);
+          } }
+        />
+        <img
+          src={ isFavorite ? blackHeart : whiteHeart }
+          alt="favorite"
+          role="presentation"
+          data-testid="favorite-btn"
+          className="fav-inprogress"
+          onClick={ handleFavorites }
+        />
+      </div>
+      {shared && <small>Link copied!</small>}
+      <p data-testid="instructions" className="instruction">{recipe.strInstructions}</p>
+
+      {/* <Button
         type="button"
         variant="outline-success"
         data-testid="share-btn"
         // onClick={ handleShare }
       >
         Share
-      </Button>
-      <Button
-        type="button"
-        variant="outline-success"
-        data-testid="favorite-btn"
-        // onClick={ handleFavorite }
-      >
-        Favorite
-      </Button>
-      <Button
-        type="button"
-        variant="outline-success"
-        data-testid="recipe-category"
-        // onClick={ handleCategory }
-      >
-        Category
-      </Button>
+      </Button> */}
+      <div className="btns-inprogress">
+        <Button
+          type="button"
+          variant="outline-success"
+          data-testid="favorite-btn"
+          // onClick={ handleFavorite }
+        >
+          Favorite
+        </Button>
+        <Button
+          type="button"
+          variant="outline-success"
+          className="btn-inprogress"
+          data-testid="recipe-category"
+        >
+          Category
+        </Button>
 
-      <h5 data-testid="instructions">{ recipe.strInstructions }</h5>
+      </div>
+      <hr size="1" />
 
       <br />
 
-      { ingredientsList().map((ingredient, index) => (
-        <label
-          htmlFor={ `input${index}` }
-          data-testid={ `${index}-ingredient-step` }
-          key={ index }
-        >
-          <input type="checkbox" name={ `input${index}` } />
-          { ingredient.name }
-        </label>
-      ))}
+      {
+        ingredientsList().map((ingredient, index) => (
+          <IngredientCard
+            ingredient={ ingredient }
+            key={ `input${index}` }
+            index={ index }
+          />
+        ))
+      }
 
-      <button
+      <Button
         type="button"
+        variant="outline-success"
         data-testid="finish-recipe-btn"
-        // onClick={ handleFinish }
+        className="btn-finish-recipe"
+      // onClick={ handleFinish }
       >
         Finish Recipe
-      </button>
+      </Button>
     </div>
   );
 }
@@ -116,6 +192,7 @@ function RecipeInProgress(props) {
 RecipeInProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({ id: PropTypes.string }),
-  }).isRequired };
+  }).isRequired,
+};
 
 export default RecipeInProgress;

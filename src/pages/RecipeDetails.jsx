@@ -8,6 +8,8 @@ import RecommendationCard from '../components/RecommendationCard';
 import '../CSS/pages/RecipeDetails.css';
 import '../style/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -25,6 +27,9 @@ function RecipeDetails(props) {
   const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
   const [continueBtn, setContinueBtn] = useState(false);
   const [shared, setShared] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoritesLocalStorage,
+    setFavoritesLocalStorage] = useState(localStorage.getItem('favoriteRecipes'));
   const { searchResult } = useContext(SearchContext);
   const YT = 32;
   const MAX_RECOMENDATION = 6;
@@ -35,11 +40,22 @@ function RecipeDetails(props) {
     recomendations = searchResult[recCategory].slice(0, MAX_RECOMENDATION);
   }
 
-  if (localStorage.getItem('doneRecipes')) {
-    const doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
-    const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
-    if (isDone) setShowStartRecipeBtn(false);
-  }
+  useEffect(() => {
+    if (localStorage.getItem('doneRecipes')) {
+      const doneRecipes = [...JSON.parse(localStorage.getItem('doneRecipes'))];
+      const isDone = doneRecipes.find((doneRecipe) => doneRecipe.id === id);
+      if (isDone) setShowStartRecipeBtn(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (localStorage.getItem('favoriteRecipes')) {
+      const favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      const favorite = favorites.find((favRecipe) => favRecipe.id === id);
+      if (favorite) setIsFavorite(true);
+      else setIsFavorite(false);
+    }
+  }, [id, favoritesLocalStorage]);
 
   const fetchApi = useCallback(async () => {
     const response = await fetch(url);
@@ -82,8 +98,36 @@ function RecipeDetails(props) {
     if (localStorage.getItem('inProgressRecipes')) {
       const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       if (inProgressRecipes[category]) setContinueBtn(true);
+      else setContinueBtn(false);
     }
-  }, [category]);
+  }, [category, location.pathname]);
+
+  const handleFavorites = () => {
+    let favorites = [];
+    const favorite = {
+      id,
+      type: keyName.toLowerCase(),
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe?.strAlcoholic || '',
+      name: recipe[`str${keyName}`],
+      image: recipe[`str${keyName}Thumb`],
+    };
+
+    if (!isFavorite) {
+      if (localStorage.getItem('favoriteRecipes')) {
+        favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      }
+      favorites.push(favorite);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+    } else {
+      favorites = [...JSON.parse(localStorage.getItem('favoriteRecipes'))];
+      const favorites2 = favorites.filter((fav) => fav.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favorites2));
+    }
+
+    setFavoritesLocalStorage(localStorage.getItem('favoriteRecipes'));
+  };
 
   return (
     <div className="div-details">
@@ -122,6 +166,17 @@ function RecipeDetails(props) {
               </ListGroup.Item>))}
           </ListGroup>
           <hr size="8" />
+
+          <div>
+            <img
+              src={ isFavorite ? blackHeart : whiteHeart }
+              alt="share"
+              role="presentation"
+              data-testid="favorite-btn"
+              onClick={ handleFavorites }
+            />
+          </div>
+          { shared && <small>Link copied!</small> }
           <p
             data-testid="instructions"
             className="text-details"
@@ -138,17 +193,6 @@ function RecipeDetails(props) {
             data-testid="video"
           /> }
         </div>)}
-      <div className="div-share-icon-N-btn-fav">
-        <Button
-          className="favorite-btn"
-          variant="outline-success"
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Add to Favorites
-        </Button>
-      </div>
-      { shared && <small>Link copied!</small> }
       <div className="recommendation-container">
         { recomendations
           .map((recomendation, i) => (

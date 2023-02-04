@@ -1,0 +1,6 @@
+.div-btns-done-recipes {
+  display: flex;
+  flex-direction: column;
+  margin: 300px 40px 30px 90px;
+  width: 50%;
+}

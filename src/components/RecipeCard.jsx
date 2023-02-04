@@ -48,6 +48,8 @@ RecipeCard.propTypes = {
     strMeal: PropTypes.string,
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }),
 }.isRequired;
 

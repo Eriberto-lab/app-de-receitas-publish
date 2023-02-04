@@ -1,0 +1,63 @@
+.div-recipe-inprogress {
+  background-color: rgb(184, 212, 176);
+  height: 100%;
+}
+
+.title-inprogress {
+  color: rgb(53, 34, 10);
+  padding: 3%;
+  width: 52%;
+}
+
+.img-inprogress {
+  border-radius: 3%;
+  float: right;
+  margin-top: -120px;
+  width: 160px;
+}
+
+.icons-inprogress {
+  margin-left: 30px;
+  margin-top: -20px;
+  position: relative;
+}
+
+.instruction {
+  color: rgb(53, 34, 10);
+  font-size: smaller;
+  margin-top: 10px;
+  padding: 5%;
+}
+
+.fav-inprogress {
+  margin-left: 40px;
+}
+
+.hr-1 {
+  width: 52%;
+}
+
+.btns-inprogress {
+  margin-left: 60px;
+  margin-top: -18px;
+}
+
+.btn-inprogress {
+  margin-left: 20px;
+}
+
+.checks-inprogess {
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  width: 90%;
+}
+
+.checks {
+  margin-right: 5px;
+}
+
+.btn-finish-recipe {
+  margin: -100px 1px 1px 200px;
+  position: relative;
+}

@@ -1,0 +1,35 @@
+.page-fav {
+  background-color: rgb(184, 212, 176);
+  height: 100%;
+}
+
+.favorite-recipe-img {
+  border-radius: 50%;
+  float: right;
+  margin-top: -50px;
+  width: 50%;
+}
+
+.doneorfav-page {
+  background-color: rgb(184, 212, 176);
+  margin-top: 25%;
+}
+
+.all-btns-fav {
+  display: flex;
+  flex-direction: column;
+  margin-left: 45px;
+  margin-top: 110px;
+  padding: 10%;
+  width: 70%;
+}
+
+.title-fav-or-done {
+  padding: 2%;
+}
+
+.fav-or-done {
+  color: rgb(53, 34, 10);
+  margin-top: 100px;
+  padding: 5%;
+}
